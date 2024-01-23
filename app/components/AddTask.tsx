@@ -5,8 +5,11 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { Modal } from "./Modal";
 import React, { FormEventHandler, useState } from "react";
 import { addTodo } from "@/api";
+import { useRouter } from "next/navigation";
+import { v4 as uuidv4} from 'uuid';
 
 export const AddTask = () => {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [newTaskValue, setNewTaskValue] = useState<string>('');
 
@@ -14,10 +17,12 @@ export const AddTask = () => {
     e.preventDefault()
 
     await addTodo({
-      id:"3",
+      id: uuidv4(),
       text: newTaskValue,
     });
     setNewTaskValue("");
+    setModalOpen(false);
+    router.refresh();
   };
 
   return (
