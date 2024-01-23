@@ -2,15 +2,15 @@ import React from "react";
 
 interface ModalProps {
   modalOpen: boolean;
-  setModalOpen: () => void;
+  setModalOpen: (open: boolean) => boolean | void;
+  children: React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
+export const Modal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, children }) => {
   return (
     <div className={`modal ${modalOpen ? "modal-open" : ""}`}>
       <div className="modal-box relative">
         <form method="dialog">
-          {/* if there is a button in form, it will close the modal */}
           <button
             onClick={() => setModalOpen(false)}
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -18,8 +18,7 @@ export const Modal: React.FC<ModalProps> = ({ modalOpen, setModalOpen }) => {
             ✕
           </button>
         </form>
-        <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4">Press ESC key or click on ✕ button to close</p>
+        {children}
       </div>
     </div>
   );
